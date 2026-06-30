@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Clock, ArrowUp, Globe, Wrench } from 'lucide-react';
 import Footer from '../components/Footer';
 import PixelReveal from '../components/PixelReveal';
 

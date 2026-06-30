@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export default function ScrollGlitch() {
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number>(0);
   const lastScrollY = useRef(window.scrollY);
 
   useEffect(() => {

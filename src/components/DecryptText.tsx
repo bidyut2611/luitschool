@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+{}|[]\\;\':",./<>?';
 
@@ -7,7 +7,7 @@ interface DecryptTextProps {
   speed?: number; // ms per iteration
   maxIterations?: number; // how many random chars before settling
   className?: string;
-  elementType?: keyof JSX.IntrinsicElements;
+  elementType?: React.ElementType;
 }
 
 export default function DecryptText({ 
