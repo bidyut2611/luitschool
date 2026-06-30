@@ -27,11 +27,6 @@ export default function CursorEffects() {
       const target = e.target as HTMLElement;
       const clickable = !!target.closest('a, button, input, select, textarea, .card-hover, .magnetic-btn');
       setIsHovering(clickable);
-
-      // Immediately update the fast dot
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${e.clientX - 4}px, ${e.clientY - 4}px, 0) scale(${isClicking ? 0.5 : isHovering ? 2 : 1})`;
-      }
     };
 
     const onMouseDown = () => setIsClicking(true);
@@ -56,8 +51,14 @@ export default function CursorEffects() {
         y: prev.y + dy * 0.25,
       };
 
+      // Update dot instantly
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${target.x - 4}px, ${target.y - 4}px, 0) scale(${isClicking ? 0.5 : isHovering ? 2 : 1})`;
+      }
+
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${trailingPos.current.x - 20}px, ${trailingPos.current.y - 20}px, 0) scale(${isHovering ? 1.5 : 1})`;
+        // We set marginLeft/Top to -50px, so we just translate by x, y
+        ringRef.current.style.transform = `translate3d(${trailingPos.current.x}px, ${trailingPos.current.y}px, 0) scale(${isHovering ? 1.5 : 1})`;
       }
       
       if (spotlightRef.current) {
@@ -82,10 +83,11 @@ export default function CursorEffects() {
       {/* 1. Core Dot (Immediate) */}
       <div 
         ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 rounded-full bg-white mix-blend-difference transition-transform duration-75"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 rounded-full bg-white transition-transform duration-75"
         style={{
           opacity: isVisible ? 1 : 0,
-          boxShadow: '0 0 10px 2px rgba(255, 255, 255, 0.8)'
+          boxShadow: '0 0 10px 2px rgba(255, 255, 255, 0.8)',
+          willChange: 'transform'
         }}
       />
 
@@ -99,6 +101,7 @@ export default function CursorEffects() {
           marginLeft: '-50px',
           marginTop: '-50px',
           opacity: isVisible ? (isClicking ? 0.3 : isHovering ? 1 : 0.6) : 0,
+          willChange: 'transform'
         }}
       >
         {/* Outer rotating brackets */}
@@ -136,12 +139,13 @@ export default function CursorEffects() {
       {/* 3. The large soft spotlight */}
       <div 
         ref={spotlightRef}
-        className="pointer-events-none fixed top-0 left-0 z-[100] w-[600px] h-[600px] rounded-full blur-[80px] transition-transform duration-300 mix-blend-screen"
+        className="pointer-events-none fixed top-0 left-0 z-[100] w-[600px] h-[600px] rounded-full blur-[80px] transition-transform duration-300"
         style={{
           background: isHovering 
             ? 'radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 60%)' 
             : 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%)',
-          opacity: isVisible ? 1 : 0
+          opacity: isVisible ? 1 : 0,
+          willChange: 'transform'
         }}
       />
     </>
