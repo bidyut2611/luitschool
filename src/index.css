@@ -26,7 +26,7 @@ html {
 }
 
 /* Scroll Velocity Glitch Effects */
-html.is-scrolling body {
+html.is-scrolling main#main {
   /* Skew the entire interface based on scroll speed */
   transform: skewY(var(--scroll-skew));
   /* Chromatic aberration splitting based on scroll speed */
@@ -36,12 +36,15 @@ html.is-scrolling body {
   transition: transform 0.05s ease-out, text-shadow 0.05s ease-out;
 }
 
+main#main {
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.1s ease;
+}
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: #0a0a0c;
   color: #f4f4f5;
   overflow-x: hidden;
-  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.1s ease;
 }
 
 ::-webkit-scrollbar {
