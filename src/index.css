@@ -31,11 +31,9 @@ html.is-scrolling body {
   transform: skewY(var(--scroll-skew));
   /* Chromatic aberration splitting based on scroll speed */
   text-shadow: 
-    calc(var(--scroll-rgb) * -1) 0 0 rgba(255,0,0,0.5),
-    var(--scroll-rgb) 0 0 rgba(0,255,255,0.5);
-  /* Slight motion blur */
-  filter: blur(var(--scroll-blur));
-  transition: transform 0.1s ease-out, text-shadow 0.1s ease-out, filter 0.1s ease-out;
+    calc(var(--scroll-rgb) * -1) 0 0 rgba(255,0,0,0.7),
+    var(--scroll-rgb) 0 0 rgba(0,255,255,0.7);
+  transition: transform 0.05s ease-out, text-shadow 0.05s ease-out;
 }
 
 body {
@@ -43,7 +41,7 @@ body {
   background: #0a0a0c;
   color: #f4f4f5;
   overflow-x: hidden;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.3s ease, filter 0.3s ease;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.1s ease;
 }
 
 ::-webkit-scrollbar {
