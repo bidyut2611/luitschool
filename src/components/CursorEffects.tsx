@@ -15,11 +15,6 @@ export default function CursorEffects() {
   const spotlightRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Hide default cursor
-    document.body.style.cursor = 'none';
-    const iteractableElements = document.querySelectorAll('a, button, input, select, textarea');
-    iteractableElements.forEach(el => (el as HTMLElement).style.cursor = 'none');
-
     const onMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
@@ -51,11 +46,6 @@ export default function CursorEffects() {
         y: prev.y + dy * 0.25,
       };
 
-      // Update dot instantly
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${target.x - 4}px, ${target.y - 4}px, 0) scale(${isClicking ? 0.5 : isHovering ? 2 : 1})`;
-      }
-
       if (ringRef.current) {
         // We set marginLeft/Top to -50px, so we just translate by x, y
         ringRef.current.style.transform = `translate3d(${trailingPos.current.x}px, ${trailingPos.current.y}px, 0) scale(${isHovering ? 1.5 : 1})`;
@@ -74,24 +64,12 @@ export default function CursorEffects() {
       window.removeEventListener('mousedown', onMouseDown);
       window.removeEventListener('mouseup', onMouseUp);
       cancelAnimationFrame(animationFrameId);
-      document.body.style.cursor = 'auto';
     };
   }, [isHovering, isClicking, isVisible]); // Only re-bind when state changes (which is rare compared to mouse movement)
 
   return (
     <>
-      {/* 1. Core Dot (Immediate) */}
-      <div 
-        ref={dotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2 w-2 rounded-full bg-white transition-transform duration-75"
-        style={{
-          opacity: isVisible ? 1 : 0,
-          boxShadow: '0 0 10px 2px rgba(255, 255, 255, 0.8)',
-          willChange: 'transform'
-        }}
-      />
-
-      {/* 2. Robotic Trailing Ring & HUD */}
+      {/* 1. Robotic Trailing Ring & HUD (The core dot is removed, using native cursor instead for 0 latency) */}
       <div 
         ref={ringRef}
         className="pointer-events-none fixed top-0 left-0 z-[9998] flex items-center justify-center transition-transform duration-100"
