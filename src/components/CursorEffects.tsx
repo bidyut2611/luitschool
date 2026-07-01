@@ -10,7 +10,6 @@ export default function CursorEffects() {
   const trailingPos = useRef({ x: 0, y: 0 });
 
   // Refs for direct DOM manipulation to avoid lag
-  const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
 
