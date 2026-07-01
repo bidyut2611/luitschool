@@ -14,8 +14,8 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-6">
-      <nav className="bg-[#0a0a0c] rounded-full px-5 py-3 flex items-center justify-between max-w-5xl mx-auto border border-white/10 shadow-[0_0_20px_-5px_rgba(245,158,11,0.2)]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c] border-b border-white/10 shadow-lg">
+      <nav className="px-5 py-3 flex items-center justify-between max-w-7xl mx-auto h-20">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5" aria-label="Luit School of Business home">
           <svg className="h-9 w-9 shrink-0 animate-spin-slow" style={{ animationDuration: '30s' }} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +69,7 @@ export default function Navbar() {
 
       {/* Mobile dropdown */}
       {open && (
-        <div className="md:hidden mt-2 liquid-glass-strong rounded-2xl p-3 max-w-5xl mx-auto">
+        <div className="md:hidden absolute top-20 left-0 right-0 bg-[#0a0a0c] border-b border-white/10 p-4 shadow-xl">
           {navLinks.map((link) => (
             <Link
               key={link.label}
